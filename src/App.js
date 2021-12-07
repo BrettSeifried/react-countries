@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import { getCountries } from './services/countries';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [countries, setcountries] = useState([]);
+  const [query, setQuery] = useState('');
+  const [continents, setContinents] = useState('All');
+  console.log(countries);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1> Country List</h1>
     </div>
   );
 }
