@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import { getCountries } from './services/countries';
 import { useState, useEffect } from 'react';
 
 function App() {
   const [countries, setCountries] = useState([]);
-  // const [query, setQuery] = useState('');
-  const [flag, setFlag] = useState([]);
-  // const [continents, setContinents] = useState('All');
+  const [query, setQuery] = useState('');
+  const [continent, setContinent] = useState('All');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,15 +16,45 @@ function App() {
     fetchData();
   }, []);
 
+  function filterCountries() {
+    return countries.filter((obj) => {
+      return obj.name.includes(query) && (obj.continent === continent || continent === 'All');
+    });
+  }
+
   return (
     <div className="App">
       <h1>Country List</h1>
-      {countries.map((countries) => (
-        <p key={countries.id}>{countries.name}</p>
-      ))}
-      {flag.map((flag) => (
-        <img alt={flag.name} src={`https://flagcdn.com/16x12/${flag.iso2}.png`} />
-      ))}
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
+      <select value={continent} onChange={(e) => setContinent(e.target.value)}>
+        <option value="All">All</option>
+        <option value="Oceania">Oceania</option>
+        <option value="Europe">Europe</option>
+        <option value="Africa">Africa</option>
+        <option value="North America">North America</option>
+        <option value="Antarctica">Antarctica</option>
+        <option value="South America">South America</option>
+        <option value="Asia">Asia</option>
+      </select>
+      <div className="countryList">
+        <div className="country">
+          {filterCountries().map((country) => (
+            <p key={country.id}>
+              <img
+                alt={country.name}
+                src={`https://flagcdn.com/80x60/${country.iso2.toLowerCase()}.png`}
+              ></img>
+              {country.name} : {country.continent}
+            </p>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
