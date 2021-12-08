@@ -11,7 +11,6 @@ function App() {
     const fetchData = async () => {
       const data = await getCountries();
       setCountries(data);
-      console.log(data);
     };
     fetchData();
   }, []);
