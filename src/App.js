@@ -17,7 +17,10 @@ function App() {
 
   function filterCountries() {
     return countries.filter((obj) => {
-      return obj.name.includes(query) && (obj.continent === continent || continent === 'All');
+      return (
+        obj.name.toLowerCase().includes(query) ||
+        (obj.name.includes(query) && (obj.continent === continent || continent === 'All'))
+      );
     });
   }
 
