@@ -7,6 +7,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [continent, setContinent] = useState('All');
   const [loading, setLoading] = useState(true);
+  // const [order, setOrder] = useState('asc');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,11 +23,23 @@ function App() {
   function filterCountries() {
     return countries.filter((obj) => {
       return (
-        obj.name.toLowerCase().includes(query) ||
-        (obj.name.includes(query) && (obj.continent === continent || continent === 'All'))
+        (obj.name.toLowerCase().includes(query) || obj.name.includes(query)) &&
+        (obj.continent === continent || continent === 'All')
       );
     });
   }
+
+  // function sortCountries(a, b) {
+  //   let countryA = a.name.toUpperCase();
+  //   let countryB = b.name.toUpperCase();
+  //   if (countryA < countryB) {
+  //     return -1;
+  //   }
+  //   if (countryA > countryB) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // }
 
   return (
     <div className="App">
@@ -51,6 +64,9 @@ function App() {
             <option value="South America">South America</option>
             <option value="Asia">Asia</option>
           </select>
+          {/* <button value={order} onChange={(e) => setOrder(e.target.value)}>
+            A-Z
+          </button> */}
           <div className="countryList">
             <div className="country">
               {filterCountries().map((country) => (
